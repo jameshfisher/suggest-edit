@@ -1,5 +1,5 @@
 document.onload = () => {
-  const btnEl = document.getElementById("suggestedit");
+  const btnEl = document.getElementById("suggest-edit");
   let beforeEdit = null;
   btnEl.onclick = (e) => {
     e.preventDefault();
