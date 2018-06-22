@@ -4,22 +4,26 @@ window.onload = () => {
   btnEl.onclick = (e) => {
     e.preventDefault();
     if (beforeEdit === null) {
-      btnEl.classList.add("editing");
+      alert("Edit anything on the page. When you're done, hit 'Save edits'.");
+      btnEl.innerText = "Save edits";
       document.body.contentEditable = true;
       beforeEdit = document.body.innerHTML;
     } else {
       afterEdit = document.body.innerHTML;
       document.body.contentEditable = false;
-      btnEl.classList.remove("editing");
-      const patch = JsDiff.createPatch(window.location, beforeEdit, afterEdit, "", "");
+      btnEl.innerText = "Suggest edit";
+      const patch = JsDiff.createPatch(window.location.href, beforeEdit, afterEdit, "", "");
       beforeEdit = null;
       fetch("https://hooks.zapier.com/hooks/catch/2257982/wddkks/", {
         method: "POST",
         body: JSON.stringify({
-          url: window.location,
-          diff: patch
+          url: window.location.href,
+          diff: patch,
+          description: prompt("Please briefly describe your changes"),
+          email: prompt("What is your email address?")
         })
       });
+      alert("Thanks for your suggestion!");
     }
   };
 }
