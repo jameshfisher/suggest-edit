@@ -1,4 +1,4 @@
-document.onload = () => {
+window.onload = () => {
   const btnEl = document.getElementById("suggest-edit");
   let beforeEdit = null;
   btnEl.onclick = (e) => {
